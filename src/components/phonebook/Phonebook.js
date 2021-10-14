@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import s from '../phonebook/phonebook.module.css';
 import { IoCallSharp, IoAccessibilityOutline } from 'react-icons/io5';
-
+import phonebookActions from '../../redux/phonebook/phonebook-actions';
 class Phonebook extends Component {
   state = {
     name: '',
@@ -80,5 +81,8 @@ Phonebook.propTypes = {
   name: PropTypes.string,
   number: PropTypes.number,
 };
+const mapDispatchtoProps = dispatch => ({
+  onSubmit: ({ name, number }) => dispatch(phonebookActions.addContacts({ name, number })),
+});
 
-export default Phonebook;
+export default connect(null, mapDispatchtoProps)(Phonebook);

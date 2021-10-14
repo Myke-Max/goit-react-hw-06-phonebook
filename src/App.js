@@ -19,39 +19,34 @@ export default function App() {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const onSearchSameContact = newName => {
-    return contacts.find(({ name }) => name === newName);
-  };
+  // const onSearchSameContact = newName => {
+  //   return contacts.find(({ name }) => name === newName);
+  // };
 
-  const onSubmitForm = ({ name, number }) => {
-    if (!onSearchSameContact(name)) {
-      const newContact = {
-        id: uuidv4(),
-        name,
-        number,
-      };
-      setContacts(contacts => [newContact, ...contacts]);
+  // const onSubmitForm = ({ name, number }) => {
+  //   if (!onSearchSameContact(name)) {
+  //     const newContact = {
+  //       id: uuidv4(),
+  //       name,
+  //       number,
+  //     };
+  //     setContacts(contacts => [newContact, ...contacts]);
 
-      showSuccess();
-      return;
-    }
-    showError();
-  };
+  //     showSuccess();
+  //     return;
+  //   }
+  //   showError();
+  // };
 
   const getFilterValue = e => {
     setFilter(e.currentTarget.value);
   };
 
-  const getVisibleContacts = () => {
-    const normalizeFilter = filter.toLowerCase();
-    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
-  };
-
-  const onDeleteContact = deleteId => {
-    setContacts(prevState => {
-      return prevState.filter(contact => contact.id !== deleteId);
-    });
-  };
+  // const onDeleteContact = deleteId => {
+  //   setContacts(prevState => {
+  //     return prevState.filter(contact => contact.id !== deleteId);
+  //   });
+  // };
 
   const showError = () => {
     return toast.error('🦄 The contact already exists in the phone book', {
@@ -76,16 +71,16 @@ export default function App() {
     });
   };
 
-  const visibleContact = getVisibleContacts();
+  // const visibleContact = getVisibleContacts();
   // console.log(getVisibleContacts());
   return (
     <>
       <ToastContainer />
       <Container>
         <Counter />
-        <Phonebook onSubmit={onSubmitForm} contactsCount={contacts} />
-        <Filter value={filter} filterChange={getFilterValue} />
-        <ContactsList contacts={visibleContact} deleteContact={onDeleteContact} />
+        <Phonebook contactsCount={contacts} />
+        <Filter />
+        <ContactsList />
       </Container>
     </>
   );
