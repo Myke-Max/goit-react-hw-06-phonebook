@@ -1,0 +1,64 @@
+.contact__wrapper {
+  width: 400px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  font-size: 50px;
+  font-weight: 700;
+  color: whitesmoke;
+  text-align: right;
+}
+.contacts__count {
+  text-align: right;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact__name,
+.contact__number {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.167;
+  letter-spacing: 0.03em;
+  margin-bottom: 15px;
+}
+
+.input__name {
+  margin-left: 56px;
+}
+
+.input__tel {
+  margin-left: 30px;
+}
+.input__name,
+.input__tel {
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  height: 20px;
+  padding: 5px 10px;
+}
+.add__button {
+  width: 200px;
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.875;
+  letter-spacing: 0.03em;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background-color: #8a2be2;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: transparent;
+}
