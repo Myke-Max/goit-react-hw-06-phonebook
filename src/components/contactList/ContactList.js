@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import s from '../contactList/contactList.module.css';
 import { IoCallSharp, IoAccessibilityOutline, IoCloseCircleOutline } from 'react-icons/io5';
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
+
 const ContactsList = ({ contacts, deleteContact }) => {
   return (
     <ul className={s.contact__list}>

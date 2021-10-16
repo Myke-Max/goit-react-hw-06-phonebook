@@ -1,9 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {} from 'react-redux';
 import s from '../phonebook/phonebook.module.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { IoCallSharp, IoAccessibilityOutline } from 'react-icons/io5';
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
+
 class Phonebook extends Component {
   state = {
     name: '',
@@ -15,12 +19,20 @@ class Phonebook extends Component {
       [name]: value,
     });
   };
+  onSearchSameContact = newName => {
+    return this.props.contactsCount.find(({ name }) => name === newName);
+  };
 
   onSubmit = e => {
     e.preventDefault();
+    if (this.onSearchSameContact(this.state.name)) {
+      this.showError();
+      return;
+    }
 
     this.props.onSubmit(this.state);
     this.onResetForm();
+    this.showSuccess();
   };
 
   onResetForm = () => {
@@ -29,6 +41,30 @@ class Phonebook extends Component {
       number: '',
     });
   };
+
+  showSuccess() {
+    return toast.success('🦄Added new contact', {
+      position: 'top-left',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+
+  showError() {
+    return toast.error('🦄 The contact already exists in the phone book', {
+      position: 'top-left',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
 
   render() {
     const { contactsCount } = this.props;
@@ -81,8 +117,13 @@ Phonebook.propTypes = {
   name: PropTypes.string,
   number: PropTypes.number,
 };
-const mapDispatchtoProps = dispatch => ({
+
+const mapStateToProps = state => ({
+  contactsCount: state.phonebook.contacts,
+});
+
+const mapDispatchToProps = dispatch => ({
   onSubmit: ({ name, number }) => dispatch(phonebookActions.addContacts({ name, number })),
 });
 
-export default connect(null, mapDispatchtoProps)(Phonebook);
+export default connect(mapStateToProps, mapDispatchToProps)(Phonebook);

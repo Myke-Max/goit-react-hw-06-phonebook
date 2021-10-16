@@ -2,24 +2,22 @@ import React, { useState, useEffect } from 'react';
 import Phonebook from './components/phonebook';
 import ContactsList from './components/contactList/ContactList';
 import Filter from './components/filterContacts';
+import { ToastContainer } from 'react-toastify';
 import Container from './components/container';
 import { v4 as uuidv4 } from 'uuid';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import Counter from './components/Counter';
 
 export default function App() {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
-  });
+  // const [contacts, setContacts] = useState(() => {
+  //   return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
+  // });
 
-  const [filter, setFilter] = useState('');
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  // const onSearchSameContact = newName => {
+  // onSearchSameContact = newName => {
   //   return contacts.find(({ name }) => name === newName);
   // };
 
@@ -38,9 +36,9 @@ export default function App() {
   //   showError();
   // };
 
-  const getFilterValue = e => {
-    setFilter(e.currentTarget.value);
-  };
+  // const getFilterValue = e => {
+  //   setFilter(e.currentTarget.value);
+  // };
 
   // const onDeleteContact = deleteId => {
   //   setContacts(prevState => {
@@ -48,37 +46,14 @@ export default function App() {
   //   });
   // };
 
-  const showError = () => {
-    return toast.error('🦄 The contact already exists in the phone book', {
-      position: 'top-left',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-  const showSuccess = () => {
-    return toast.success('🦄Added new contact', {
-      position: 'top-left',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
   // const visibleContact = getVisibleContacts();
   // console.log(getVisibleContacts());
   return (
     <>
-      <ToastContainer />
+      <ToastContainer />;
       <Container>
         <Counter />
-        <Phonebook contactsCount={contacts} />
+        <Phonebook />
         <Filter />
         <ContactsList />
       </Container>
