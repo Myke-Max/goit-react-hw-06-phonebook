@@ -1,11 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import s from '../contactList/contactList.module.css';
 import { IoCallSharp, IoAccessibilityOutline, IoCloseCircleOutline } from 'react-icons/io5';
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
 
-const ContactsList = ({ contacts, deleteContact }) => {
+export default function ContactsList() {
+  const getVisibleContacts = (allContacts, filter) => {
+    const normalizeFilter = filter.toLowerCase();
+    return allContacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
+  };
+  const contacts = useSelector(state =>
+    getVisibleContacts(state.phonebook.contacts, state.phonebook.filter),
+  );
+  const filter = useSelector(state => state.phonebook.filter);
+
+  const dispatch = useDispatch();
+
+  const deleteContact = id => dispatch(phonebookActions.deleteContact(id));
+
   return (
     <ul className={s.contact__list}>
       {contacts.map(({ id, name, number }) => {
@@ -35,25 +48,24 @@ const ContactsList = ({ contacts, deleteContact }) => {
       })}
     </ul>
   );
-};
+}
 
-const getVisibleContacts = (allContacts, filter) => {
-  const normalizeFilter = filter.toLowerCase();
-  return allContacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
-};
+// const getVisibleContacts = (allContacts, filter) => {
+//   const normalizeFilter = filter.toLowerCase();
+//   return allContacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
+// };
 
-const mapStateToProps = state => {
-  // console.log(state);
-  const { filter, contacts } = state.phonebook;
+// const mapStateToProps = state => {
+//   const { filter, contacts } = state.phonebook;
 
-  return {
-    contacts: getVisibleContacts(contacts, filter),
-  };
-};
+//   return {
+//     contacts: getVisibleContacts(contacts, filter),
+//   };
+// };
 
-const mapDispatchToProps = dispatch => ({
-  deleteContact: id => dispatch(phonebookActions.deleteContact(id)),
-});
+// const mapDispatchToProps = dispatch => ({
+//   deleteContact: id => dispatch(phonebookActions.deleteContact(id)),
+// });
 
 // ContactsList.propTypes = {
 //   contacts: PropTypes.arrayOf(
@@ -63,4 +75,4 @@ const mapDispatchToProps = dispatch => ({
 //   ),
 // };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);

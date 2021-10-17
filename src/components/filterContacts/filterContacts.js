@@ -1,9 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
 import s from '../filterContacts/filter.module.css';
 
-const filter = ({ value, filterChange }) => {
+export default function Filter() {
+  const value = useSelector(state => state.phonebook.filter);
+  const dispatch = useDispatch();
   return (
     <div className={s.search__wrapper}>
       <label className={s.search__label}>
@@ -13,18 +15,18 @@ const filter = ({ value, filterChange }) => {
           type="text"
           className={s.search__input}
           value={value}
-          onChange={filterChange}
+          onChange={e => dispatch(phonebookActions.filter(e.target.value))}
         />
       </label>
     </div>
   );
-};
-const mapStateToProps = state => ({
-  value: state.phonebook.filter,
-});
+}
+// const mapStateToProps = state => ({
+//   value: state.phonebook.filter,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  filterChange: e => dispatch(phonebookActions.filter(e.target.value)),
-});
+// const mapDispatchToProps = dispatch => ({
+//   filterChange: e => dispatch(phonebookActions.filter(e.target.value)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(filter);
+// export default connect(null, mapDispatchToProps)(filter);
