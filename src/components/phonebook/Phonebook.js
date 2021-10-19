@@ -6,13 +6,14 @@ import s from '../phonebook/phonebook.module.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoCallSharp, IoAccessibilityOutline } from 'react-icons/io5';
+import { getFilter } from '../../redux/phonebook/phonebook-selectors';
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
 
 export default function Phonebook() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(state => getFilter(state));
 
   const dispatch = useDispatch();
 

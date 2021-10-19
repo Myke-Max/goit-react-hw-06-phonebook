@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { getContacts, getFilter } from '../../redux/phonebook/phonebook-selectors';
 import s from '../contactList/contactList.module.css';
 import { IoCallSharp, IoAccessibilityOutline, IoCloseCircleOutline } from 'react-icons/io5';
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
@@ -10,10 +11,7 @@ export default function ContactsList() {
     const normalizeFilter = filter.toLowerCase();
     return allContacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
   };
-  const contacts = useSelector(state =>
-    getVisibleContacts(state.phonebook.contacts, state.phonebook.filter),
-  );
-  const filter = useSelector(state => state.phonebook.filter);
+  const contacts = useSelector(state => getVisibleContacts(getContacts(state), getFilter(state)));
 
   const dispatch = useDispatch();
 
